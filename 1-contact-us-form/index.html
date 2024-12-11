@@ -5,11 +5,327 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      /* write CSS here */
+      /* write your css here */
+      * {
+          margin: 0;
+          padding: 0;
+          box-sizing: border-box;
+          font-family: sans-serif;
+      }
+
+      /* Main heading section  */
+      body {
+          /* background-image: linear-gradient(#fff, #ced4da , #b197fc, #845ef7); */
+          height: 100vh;
+      }
+
+      .container {
+          width: 1200px;
+          margin: 100px auto;
+          height: auto;
+          /* background-color: #343a40; */
+      }
+
+      .blur-clr {
+          height: 400px;
+          width: 350px;
+          position: absolute;
+          border-radius: 50%;
+      }
+
+      .blur-clr--blue {
+          background-color: rgba(123, 22, 238, 0.1);
+          filter: blur(40px);
+          -webkit-filter: blur(50px);
+          top: 0;
+          right: 55%;
+      }
+
+      .blur-clr--pink{
+          height: 300px;
+          width: 350px;
+          background-color: rgba(238, 22, 238, 0.1);
+          filter: blur(40px);
+          -webkit-filter: blur(50px);
+          top: 2%;
+          left: 0;
+      }
+
+      .heading {
+          margin: 0 auto;
+          text-align: center;
+      }
+
+      .main-heading {
+          font-size: 36px;
+          font-weight: bold;
+      }
+
+      .text {
+          margin-top: 10px;
+          font-size: 16px;
+          color: #868e96;
+          font-weight: bold;
+      }
+
+      .contact-form {
+          margin: 5% auto;
+          margin-left: 15%;
+          margin-top: 6%;
+      }
+
+      .name {
+          display: flex;
+          gap: 50px;
+      }
+
+      .sub-name {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          margin-bottom: 30px;
+      }
+
+      .name-inp {
+          width: 404px;
+          height: 35px;
+          border: solid 2px #dcdfe2;
+          border-radius: 5px;
+          background-color: #fff;
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+      }
+
+      .other-fields {
+          display: block;
+      }
+
+      .input-fields {
+          font-size: 16px;
+          font-weight: bold;
+          color: #343a40;
+      }
+
+      .inp {
+          width:84%;
+          height: 35px;
+          padding: 20px;
+          border: solid 2px #dcdfe2;
+          border-radius: 5px;
+          background-color: #fff;
+          box-shadow: rgba(149, 157, 165, 0.2) 0px 8px 24px;
+          
+      }
+
+      .field {
+          display: flex;
+          flex-direction: column;
+          gap: 15px;
+          margin-bottom: 30px;
+      }
+
+      /* Policy selector and it's info  */
+      .policy {
+          display: flex;
+          align-items: center;
+          justify-content: start;
+          gap: 10px;
+      }    
+
+      .policy-btn {
+          height: 30px;
+          width: 50px;
+          stroke: #868e96;
+      }
+
+      .policy-desc {
+          font-size: 14px;
+          color: #868e96;
+          font-weight: bold;
+      }
+
+      .policy-link {
+          text-decoration: none;
+          font-weight: bold;
+          color: #1864ab;
+          font-size: 12.5;
+      }
+      .policy-link:hover {
+          color: #092744;
+      }
+
+
+      /* Toggle btn  */
+      .switch {
+          position: relative;
+          display: inline-block;
+          width: 40px;
+          height: 20px;
+        }
+        
+        /* Hide default HTML checkbox */
+        .switch input {
+          opacity: 0;
+          width: 0;
+          height: 0;
+        }
+        
+        /* The slider */
+        .slider {
+          position: absolute;
+          cursor: pointer;
+          top: 0;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          background-color: #ccc;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+        
+        .slider:before {
+          position: absolute;
+          content: "";
+          height: 16px;
+          width: 16px;
+          left: 4px;
+          bottom: 2px;
+          background-color: white;
+          -webkit-transition: .4s;
+          transition: .4s;
+        }
+        
+        input:checked + .slider {
+          background-color: #2196F3;
+        }
+        
+        input:focus + .slider {
+          box-shadow: 0 0 1px #2196F3;
+        }
+        
+        input:checked + .slider:before {
+          transform: translateX(18px);
+        }
+        
+        /* Rounded sliders */
+        .slider.round {
+          border-radius: 34px;
+        }
+        
+        .slider.round:before {
+          border-radius: 50%;
+        }
+        
+      /* submit button  */
+      .submit-btn {
+          display: inline-block;
+          background-color: #1864ab;
+          padding: 20px 50px;
+          color: #fff;
+          font-size: 14px;
+          font-weight: bold;
+          height: auto;
+          width: 85%;
+          border: none;
+          border-radius: 10px;
+          text-align: center;
+          margin-top: 35px;
+          cursor: pointer;
+      }
+
+      .submit-btn:hover{
+          background-color: #092744;
+      }
     </style>
   </head>
-  <body></body>
+  <body>
+    <div class="container">
+
+      <div class="blur-clr blur-clr--pink"></div>
+      <div class="blur-clr blur-clr--blue"></div> 
+
+      <header class="heading">
+        <div class="main-heading">
+          Contact sales
+        </div>
+        <div class="text">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Obcaecati, amet!
+        </div>
+      </header>
+
+      <section class="contact-form">
+
+        <form action="">
+
+          <section class="name">
+            
+            <div class="sub-name">
+              <span class="fn input-fields">First name</span>
+              <input type="text" name="first-name" class="name-inp">
+            </div>
+            
+            <div class="sub-name">
+              <span class="ln input-fields">Last name</span>
+              <input type="text" name="first-name" class="name-inp">
+            </div>
+            
+          </section>
+
+          <div class="other-fields">
+            <div class="field">
+              <span class="input-fields">Company</span>
+              <input type="text" class="inp">
+            </div>
+
+            <div class="field">
+              <span class="input-fields">email</span>
+              <input type="email" class="inp">
+            </div>
+
+            <div class="field">
+              <span class="input-fields">Phone number</span>
+              <input id="phone" type="tel" name="phone" class="inp" />
+              <!-- <input type="contact" class="inp" placeholder="US 🔽"> -->
+            </div>
+          </div>
+          
+          <div class="field">
+            <span class="input-fields msg">Message</span>
+            <!-- <input type="text" class="inp"> -->
+
+            <textarea name="" id="" class="inp" style="height: 150px; width: 84%;"></textarea>
+          </div>      
+          <div class="policy">
+            <div class="toggle">
+              <label class="switch">
+                <input type="checkbox">
+                <span class="slider round"></span>
+              </label>
+            </div>  
+            <p class="policy-desc">
+              By selecting this, you agree to our 
+              <a href="#" class="policy-link">privacy policy</a>
+            </p>  
+          </div>
+          
+          <div class="submit-div">
+            <buttton type="submit" class="submit-btn">
+              Let's talk
+            </buttton>
+          </div>
+      </form>
+    </section>    
+    </div>
+  </body>
+
   <script>
-    // write javascript here
+    const phoneInputField = document.querySelector("#phone");
+    const phoneInput = window.intlTelInput(phoneInputField, {
+      utilsScript:
+        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    });
+
+    
+
+
   </script>
 </html>
