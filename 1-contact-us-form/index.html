@@ -4,6 +4,10 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <!-- <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/css/intlTelInput.css"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/intlTelInput.min.js"></script> -->
     <style>
       /* write your css here */
       * {
@@ -31,6 +35,7 @@
           width: 350px;
           position: absolute;
           border-radius: 50%;
+          z-index: -1;
       }
 
       .blur-clr--blue {
@@ -39,6 +44,7 @@
           -webkit-filter: blur(50px);
           top: 0;
           right: 55%;
+          z-index: -1;
       }
 
       .blur-clr--pink{
@@ -49,6 +55,7 @@
           -webkit-filter: blur(50px);
           top: 2%;
           left: 0;
+          z-index: -1;
       }
 
       .heading {
@@ -260,12 +267,12 @@
             
             <div class="sub-name">
               <span class="fn input-fields">First name</span>
-              <input type="text" name="first-name" class="name-inp">
+              <input type="text" name="first-name" class="name-inp first-name-ip">
             </div>
             
             <div class="sub-name">
               <span class="ln input-fields">Last name</span>
-              <input type="text" name="first-name" class="name-inp">
+              <input type="text" name="first-name" class="name-inp last-name-ip">
             </div>
             
           </section>
@@ -273,7 +280,7 @@
           <div class="other-fields">
             <div class="field">
               <span class="input-fields">Company</span>
-              <input type="text" class="inp">
+              <input type="text" class="inp cmp">
             </div>
 
             <div class="field">
@@ -312,20 +319,81 @@
               Let's talk
             </buttton>
           </div>
-      </form>
+        </form>
     </section>    
     </div>
   </body>
 
   <script>
-    const phoneInputField = document.querySelector("#phone");
-    const phoneInput = window.intlTelInput(phoneInputField, {
-      utilsScript:
-        "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-    });
+    // const phoneInputField = document.querySelector("#phone");
+    // const phoneInput = window.intlTelInput(phoneInputField, {
+    //   utilsScript:
+    //     "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
+    // });
 
-    
+    const validateForm = (event) => {
+    event.preventDefault(); 
 
+    const firstName = document.querySelector('.first-name-ip');
+    const lastName = document.querySelector('.last-name-ip');
+    const company = document.querySelector('.cmp');
+    const email = document.querySelector('input[type="email"]');
+    const phone = document.querySelector('#phone');
+    const message = document.querySelector('textarea');
+    const checkbox = document.querySelector('input[type="checkbox"]');   
+
+    if(firstName.value === "" && lastName.value === "" && company.value === "" && email.value === "" && phone.value === "" && message.value === "")
+      alert("fill all the field")
+    else {
+      if(firstName.value === "") {
+          alert("First name is required!");
+          firstName.focus();
+          return false;
+      }
+
+      if(lastName.value === "") {
+          alert("Last name is required!");
+          lastName.focus();
+          return false;
+      }
+
+      if(company.value === "") {
+          alert("Company name is required!");
+          company.focus();
+          return false;
+      }
+
+      if(email.value === "" || !email.value.match(/[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/)) {
+          alert("Please enter a valid email address!");
+          email.focus();
+          return false;
+      }
+
+      const patternPhoneNo = /^[+]*[1-9]{1}[0-9]{1,14}$/;
+      if (phone.value === "" || !phone.value.match(patternPhoneNo)) {
+        alert("Please enter a valid phone number!");
+        phone.focus();
+        return false;
+      }
+
+      if(message.value === "") {
+          alert("Message is required!");
+          message.focus();
+          return false;
+      }
+
+      if(!checkbox.checked) {
+          alert("You must agree to the privacy policy!");
+          return false;
+      }
+
+      alert('Form submitted successfully!');
+      location.reload();
+    }
+  }
+
+  const form = document.querySelector('.submit-btn');
+  form.addEventListener('click', validateForm);
 
   </script>
 </html>

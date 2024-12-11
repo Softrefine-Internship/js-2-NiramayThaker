@@ -4,12 +4,183 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>
-      /* write CSS here */
+    <style>      
+      body {
+        padding: 0;
+        margin: 0;
+        font-family: sans-serif;
+        height: 100vh;
+        width: 100vw;
+      }
+
+      .main-nav {
+        padding: 1rem 2rem;
+        /* border-bottom: 1px solid rgba(0, 0, 0, 0.288); */
+        cursor: pointer;
+        position: relative;
+
+        &::after {
+          content: "";
+          position: absolute;
+          background: rgba(0, 0, 0, 0.288);;
+          height: 1px;
+          width: 100vw;
+          left: 0;
+        }
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        font-size: 1.2rem;
+        width: 50%;
+        gap: 1rem;
+        
+        @media (max-width: 450px) {
+          width: 100%;
+          margin-right: 1rem;
+        }
+
+      }
+
+      .nav-ele {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        width: 100%;
+        transition: all .3s ease;
+        border-bottom: 3px solid rgba(0, 0, 0, 0);
+
+        &:hover {
+          border-bottom: 3px solid rgb(68, 68, 242);
+          color: rgb(68, 68, 242);
+        }
+      }
+
+      .info {
+        padding: 0 2rem;
+      }
+
+      .active {
+        border-bottom: 3px solid rgb(68, 68, 242);
+        color: rgb(68, 68, 242);
+      }
+    
+      .hide {
+        display: none;
+      }
+
     </style>
   </head>
-  <body></body>
+  <body>
+
+    <div class="main-container">
+
+      <header class="main-nav">
+
+        <nav class="nav">
+
+          <div class="nav-ele profile active">
+            <p href="#" class="ele">Profile</p>
+          </div>
+          <div class="nav-ele dashboard">
+            <p href="#" class="ele">Dashboard</p>
+          </div>
+          <div class="nav-ele settings">
+            <p href="#" class="ele">Settings</p>
+          </div>
+          <div class="nav-ele contacts">
+            <p href="#" class="ele">Contacts</p>
+          </div>
+        </nav>
+
+      </header>
+
+      <section class="info">
+        <p class="info-msg profile-info">
+          <strong>
+            Profile
+          </strong>
+           Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, quibusdam?
+        </p>
+        <p class="info-msg hide dashboard-info">
+          <strong>
+            Dashboard
+          </strong>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, quibusdam?
+        </p>
+        <p class="info-msg hide settings-info">
+          <strong>
+            Settings
+          </strong>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, quibusdam?
+        </p>
+        <p class="info-msg hide contact-info">
+          <strong>
+            Contacts
+          </strong>
+          Lorem ipsum dolor sit, amet consectetur adipisicing elit. Quis, quibusdam?
+        </p>
+      </section>
+
+    </div>
+
+  </body>
   <script>
-    // write javascript here
+    let profile = document.querySelector(".profile")
+    let dashboard = document.querySelector(".dashboard")
+    let settings = document.querySelector(".settings")
+    let contact = document.querySelector(".contacts")
+
+    let profileInfo = document.querySelector(".profile-info")
+    let dashInfo = document.querySelector(".dashboard-info")
+    let settingsInfo = document.querySelector(".settings-info")
+    let contactInfo = document.querySelector(".contact-info")
+
+    profile.addEventListener("click", () => {
+      profile.classList.add("active");
+      dashboard.classList.remove("active");
+      settings.classList.remove("active");
+      contact.classList.remove("active");
+      
+      profileInfo.classList.remove("hide")
+      dashInfo.classList.add("hide")
+      settingsInfo.classList.add("hide")
+      contactInfo.classList.add("hide")
+    })
+    dashboard.addEventListener("click", () => {
+      profile.classList.remove("active");
+      dashboard.classList.add("active");
+      settings.classList.remove("active");
+      contact.classList.remove("active");
+      
+      profileInfo.classList.add("hide")
+      settingsInfo.classList.add("hide")
+      contactInfo.classList.add("hide")
+      dashInfo.classList.remove("hide")
+    })
+    settings.addEventListener("click", () => {
+      profile.classList.remove("active");
+      dashboard.classList.remove("active");
+      settings.classList.add("active");
+      contact.classList.remove("active");
+      
+      profileInfo.classList.add("hide")
+      contactInfo.classList.add("hide")
+      dashInfo.classList.add("hide")
+      settingsInfo.classList.remove("hide")
+    })
+    contact.addEventListener("click", () => {
+      profile.classList.remove("active");
+      dashboard.classList.remove("active");
+      settings.classList.remove("active");
+      contact.classList.add("active");
+
+      dashInfo.classList.add("hide")
+      settingsInfo.classList.add("hide")
+      contactInfo.classList.remove("hide")
+      profileInfo.classList.add("hide")
+    })
+
   </script>
 </html>
