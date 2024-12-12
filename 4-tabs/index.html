@@ -4,13 +4,19 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <style>      
+    <style> 
+    
+      html {
+        min-width: 100vw;
+      }
+    
       body {
         padding: 0;
         margin: 0;
         font-family: sans-serif;
-        height: 100vh;
-        width: 100vw;
+        /* height: 100vh;
+        width: 100vw; */
+        width: 100%;
       }
 
       .main-nav {
@@ -18,15 +24,14 @@
         /* border-bottom: 1px solid rgba(0, 0, 0, 0.288); */
         cursor: pointer;
         position: relative;
+      }
 
-        &::after {
-          content: "";
-          position: absolute;
-          background: rgba(0, 0, 0, 0.288);;
-          height: 1px;
-          width: 100vw;
-          left: 0;
-        }
+      .partition {
+        position: absolute;
+        background: rgba(0, 0, 0, 0.288);;
+        height: 1px;
+        width: 100%;
+        left: 0;
       }
 
       .nav {
@@ -36,10 +41,10 @@
         width: 50%;
         gap: 1rem;
         
-        @media (max-width: 450px) {
+        /* @media (max-width: 450px) {
           width: 100%;
-          margin-right: 1rem;
-        }
+          margin: 0 1rem;
+        } */
 
       }
 
@@ -59,6 +64,10 @@
 
       .info {
         padding: 0 2rem;
+        /* @media (max-width: 450px) {
+          width: 100%;
+        } */
+
       }
 
       .active {
@@ -73,13 +82,9 @@
     </style>
   </head>
   <body>
-
     <div class="main-container">
-
       <header class="main-nav">
-
         <nav class="nav">
-
           <div class="nav-ele profile active">
             <p href="#" class="ele">Profile</p>
           </div>
@@ -93,8 +98,9 @@
             <p href="#" class="ele">Contacts</p>
           </div>
         </nav>
-
+        <div class="partition"></div>
       </header>
+
 
       <section class="info">
         <p class="info-msg profile-info">
@@ -126,6 +132,8 @@
     </div>
 
   </body>
+
+
   <script>
     let profile = document.querySelector(".profile")
     let dashboard = document.querySelector(".dashboard")
