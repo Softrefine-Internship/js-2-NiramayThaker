@@ -5,11 +5,121 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-      /* write CSS here */
+      .pagination a {
+        margin: 5px;
+        padding: 8px 12px;
+        text-decoration: none;
+        border: 1px solid #ccc;
+        cursor: pointer;
+      }
+
+      .pagination a.active {
+        background-color: #007bff;
+        color: white;
+      }
+
+      .pagination a.disabled {
+        color: #ccc;
+        cursor: not-allowed;
+      }
     </style>
   </head>
-  <body></body>
-  <script>
-    // write javascript here
-  </script>
+  <body>
+
+    <div class="main-container">
+
+      <div class="pagination-data">
+        <p>Displaying items for page <span id="current-page">1</span></p>
+      </div>
+
+      <div class="pagination">
+        <div class="pages">
+          <a href="#" id="prev-btn" class="disabled">Previous</a>
+          <a href="#" class="page-link" data-page="1">1</a>
+          <a href="#" class="page-link" data-page="2">2</a>
+          <a href="#" class="page-link" data-page="3">3</a>
+          <a href="#" class="page-link page-n-1" data-page="4">4</a>
+          <a href="#" class="page-link page-n" data-page="5">5</a>
+          <a href="#" id="next-btn">Next</a>
+        </div>
+      </div>
+
+    </div>
+
+    <script>
+      let currentPage = 1;
+      const totalPages = 6;
+
+      const prevButton = document.getElementById('prev-btn');
+      const nextButton = document.getElementById('next-btn');
+      const pageLinks = document.querySelectorAll('.page-link');
+      const currentPageText = document.getElementById('current-page');
+
+      const pageN1 = document.querySelector(".page-n-1");
+      const pageN = document.querySelector(".page-n");
+
+      if(totalPages > 5){
+        pageN1.textContent = "...";
+        pageN1.getAttribute("data-page").textContent = totalPages - 1;
+        pageN.getAttribute("data-page").textContent = totalPages;
+        console.log(pageN1.getAttribute("data-page"));
+        console.log(pageN.getAttribute("data-page"));
+        pageN.textContent = totalPages;
+      }
+
+      function changePage() {
+        if (currentPage === 1) {
+          prevButton.classList.add('disabled');
+        } else {
+          prevButton.classList.remove('disabled');
+        }
+
+        if (currentPage === totalPages) {
+          nextButton.classList.add('disabled');
+        } else {
+          nextButton.classList.remove('disabled');
+        }
+
+        pageLinks.forEach(link => {
+          const page = parseInt(link.getAttribute('data-page'));
+          if (page === currentPage) {
+            console.log(page);
+            console.log(link.getAttribute('data-page'));
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+
+        currentPageText.textContent = currentPage;
+      }
+
+      prevButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentPage > 1) {
+          currentPage--;
+          changePage();
+        }
+      });
+
+      nextButton.addEventListener('click', (e) => {
+        e.preventDefault();
+        if (currentPage < totalPages) {
+          currentPage++;
+          changePage();
+        }
+      });
+
+      pageLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault();
+          currentPage = parseInt(link.getAttribute('data-page'));
+          changePage();
+        });
+      });
+
+      changePage();
+    </script>
+
+  </body>
 </html>
