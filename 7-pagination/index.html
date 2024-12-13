@@ -5,69 +5,172 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
+      body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+
+      .main-container {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 100%;
+        max-width: 400px; 
+        /* padding: 1rem; */
+      }
+
+      .pagination-data {
+        text-align: center;
+        margin: 2rem 0;
+        font-size: 1.6rem;
+      }
+
+      .pagination {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 10px;
+      }
+
       .pagination a {
-        margin: 5px;
-        padding: 8px 12px;
+        padding: 8px 13px;
         text-decoration: none;
         border: 1px solid #ccc;
         cursor: pointer;
+        font-size: 1.2rem;
+        transition: background-color 0.3s;
+        color: gray;
+
+        @media (max-width: 500px) {
+          font-size: .8rem;
+          padding: 5px 10px;
+        }
       }
 
       .pagination a.active {
-        background-color: #007bff;
-        color: white;
+        background-color: #007bff22;
+        color: #007bff;
       }
 
       .pagination a.disabled {
         color: #ccc;
         cursor: not-allowed;
       }
+
+      .pagination .btn-group {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+
+      .pagination .btn-group a {
+        padding: 8px 12px;
+      }
+
+      .prev-btn, .next-btn {
+        display: flex;
+        align-items: center;
+      }
+
+      @media (max-width: 600px) {
+        .pagination a {
+          font-size: 1rem;
+          padding: 6px 10px;
+        }
+
+        .pagination-data {
+          font-size: 1.2rem;
+        }
+
+        .prev-btn, .next-btn {
+          font-size: .8rem;
+        }
+      }
+
+      @media (max-width: 400px) {
+        .pagination a {
+          font-size: 0.9rem;
+          padding: 5px 6px;
+        }
+      }
     </style>
   </head>
   <body>
 
     <div class="main-container">
-
       <div class="pagination-data">
         <p>Displaying items for page <span id="current-page">1</span></p>
       </div>
 
       <div class="pagination">
-        <div class="pages">
+        <!-- Previous Button -->
+        <div class="prev-btn">
           <a href="#" id="prev-btn" class="disabled">Previous</a>
-          <a href="#" class="page-link" data-page="1">1</a>
-          <a href="#" class="page-link" data-page="2">2</a>
-          <a href="#" class="page-link" data-page="3">3</a>
-          <a href="#" class="page-link page-n-1" data-page="4">4</a>
-          <a href="#" class="page-link page-n" data-page="5">5</a>
+        </div>
+
+        <!-- Pagination Links -->
+        <div class="pages" id="pagination-links">
+          <!-- Page links will be inserted here -->
+        </div>
+
+        <!-- Next Button -->
+        <div class="next-btn">
           <a href="#" id="next-btn">Next</a>
         </div>
       </div>
-
     </div>
 
     <script>
       let currentPage = 1;
-      const totalPages = 6;
+      let totalPages = 15;
 
       const prevButton = document.getElementById('prev-btn');
       const nextButton = document.getElementById('next-btn');
-      const pageLinks = document.querySelectorAll('.page-link');
+      const paginationLinksContainer = document.getElementById('pagination-links');
       const currentPageText = document.getElementById('current-page');
+      
+      function updatePaginationLinks() {
+        paginationLinksContainer.innerHTML = '';
 
-      const pageN1 = document.querySelector(".page-n-1");
-      const pageN = document.querySelector(".page-n");
+        let pageLinks = [];
+        const startPage = Math.max(1, currentPage - 1);
+        const endPage = Math.min(totalPages, currentPage + 1);
 
-      if(totalPages > 5){
-        pageN1.textContent = "...";
-        pageN1.getAttribute("data-page").textContent = totalPages - 1;
-        pageN.getAttribute("data-page").textContent = totalPages;
-        console.log(pageN1.getAttribute("data-page"));
-        console.log(pageN.getAttribute("data-page"));
-        pageN.textContent = totalPages;
+        if (startPage > 1) 
+          pageLinks.push('<a href="#" class="page-link" data-page="1">1</a>');
+
+        if (startPage > 2) 
+          pageLinks.push('<a href="#" class="page-link" data-page="...">...</a>');
+        
+        for (let i = startPage; i <= endPage; i++) {
+          pageLinks.push(`<a href="#" class="page-link" data-page="${i}">${i}</a>`);
+        }
+
+        if (endPage < totalPages - 1) pageLinks.push('<a href="#" class="page-link" data-page="...">...</a>');
+        if (endPage < totalPages) pageLinks.push(`<a href="#" class="page-link" data-page="${totalPages}">${totalPages}</a>`);
+
+        pageLinks.forEach(link => 
+          paginationLinksContainer.insertAdjacentHTML('beforeend', link)
+        );
+
+        updateActiveLinks();
+        updateButtonState();
       }
 
-      function changePage() {
+      function updateActiveLinks() {
+        const pageLinks = document.querySelectorAll('.page-link');
+        pageLinks.forEach(link => {
+          const page = link.getAttribute('data-page');
+          if (page === currentPage.toString()) {
+            link.classList.add('active');
+          } else {
+            link.classList.remove('active');
+          }
+        });
+      }
+
+      function updateButtonState() {
         if (currentPage === 1) {
           prevButton.classList.add('disabled');
         } else {
@@ -79,19 +182,6 @@
         } else {
           nextButton.classList.remove('disabled');
         }
-
-        pageLinks.forEach(link => {
-          const page = parseInt(link.getAttribute('data-page'));
-          if (page === currentPage) {
-            console.log(page);
-            console.log(link.getAttribute('data-page'));
-            link.classList.add('active');
-          } else {
-            link.classList.remove('active');
-          }
-        });
-
-        currentPageText.textContent = currentPage;
       }
 
       prevButton.addEventListener('click', (e) => {
@@ -110,15 +200,23 @@
         }
       });
 
-      pageLinks.forEach(link => {
-        link.addEventListener('click', (e) => {
-          e.preventDefault();
-          currentPage = parseInt(link.getAttribute('data-page'));
-          changePage();
-        });
+      paginationLinksContainer.addEventListener('click', (e) => {
+        const clickedLink = e.target;
+        if (clickedLink.classList.contains('page-link')) {
+          const page = clickedLink.getAttribute('data-page');
+          if (page !== '...' && !clickedLink.classList.contains('disabled')) {
+            currentPage = parseInt(page);
+            changePage();
+          }
+        }
       });
 
-      changePage();
+      function changePage() {
+        currentPageText.textContent = currentPage;
+        updatePaginationLinks();
+      }
+
+      updatePaginationLinks();
     </script>
 
   </body>
